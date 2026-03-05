@@ -1,11 +1,12 @@
 const z = require("zod");
+const AppError = require("../../core/errors/app-error");
 
 const ProductSchema = z.object({
     name: z.string("name must be a string"),
     price: z.number("price must be a number")
 })
 
-function productChecker(product, res) {
+function productValidator(product) {
 
     try {
         ProductSchema.parse(product)
@@ -14,13 +15,11 @@ function productChecker(product, res) {
 
             let error = [];
             e.issues.map((element) => {
-                error.push({"error":element.code, "message":element.message})
-            })
-
-            res.status(400).json(error)
+                throw new AppError(element.message, 400)
+            })            
         }
     }
 
 }
 
-module.exports = { productChecker }
+module.exports = { productValidator }

@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const productRoutes = require('./modules/products/product.routes');
 const server = require('./server.js');
+const errorHandler = require('./core/middlewares/error-handler.js');
+const appError = require('./core/errors/app-error.js');
 
 // Middleware global natif pour dire à Express de parser le JSON entrant
 app.use(express.json());
@@ -9,3 +11,4 @@ app.use(express.json());
 const startApp = server.appListen(app);
 
 startApp.use('/api/products', productRoutes);
+startApp.use(errorHandler);

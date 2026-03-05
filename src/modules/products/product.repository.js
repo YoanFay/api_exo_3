@@ -15,11 +15,7 @@ async function find(id) {
 async function createProduct(product) {
     const connection = await server.connectionPool.getConnection();
     const rows = await connection.query(`INSERT INTO product(name, price) VALUES('${product.name}', ${product.price})`)
-    if (rows.warningStatus == 0) {
-        return find(parseInt(rows.insertId))
-    }
-
-    return false
+    return find(parseInt(rows.insertId))
 }
 
 async function updateProduct(product) {

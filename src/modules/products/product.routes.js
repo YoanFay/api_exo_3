@@ -4,50 +4,58 @@ const productController = require("./product.controller.js")
 
 // 1. READ (Tous les produits)
 app.get("/", async (req, res) => {
+
     products = await productController.getAllProducts()
     res.status(200).json(products);
+
 });
 
 // 2. READ (Un seul produit via Paramètre d'URL)
-app.get("/:id", async (req, res) => {
-    const product = await productController.getOneProduct(req);
-    if (product.length == 0) {
-        return res.status(404).json({ error: "Produit introuvable" });
+app.get("/:id", async (req, res, next) => {
+
+    try {
+        const product = await productController.getOneProduct(req);
+        res.status(200).json(product);
+    } catch (error) {
+        next(error)
     }
-    res.status(200).json(product);
+    
 });
 
 // 3. CREATE
-app.post("/", async (req, res) => {
-    const newProduct = await productController.addOneProduct(req, res)
-    // Bonne pratique : 201 Created + on renvoie l'objet créé
-    if (newProduct.length > 0) {
+app.post("/", async (req, res, next) => {
+
+    try {
+        newProduct = await productController.addOneProduct(req)
         res.status(201).json(newProduct);
-    }else{
-        res.status(400);
+    } catch (error) {
+        next(error);
     }
+
 });
 
 // 4. UPDATE
 app.put("/", async (req, res) => {
-    const product = await productController.updateProduct(req)
-    // Bonne pratique : 201 Created + on renvoie l'objet modifiée
-    if (product.length && product.length > 0) {
+
+    try {
+        const product = await productController.updateProduct(req)
         res.status(201).json(product);
-    }else{
-        res.status(400).send(product);
+    } catch (error) {
+        next(error);
     }
-}) 
+
+})
 
 // 5. DELETE
 app.delete("/", async (req, res) => {
-    const product = await productController.deleteProduct(req)
-    
-    if (product) {
-        res.status(201).json({result : "Produit supprimé"});
-    }else{
-        res.status(404).json({error : "Produit non trouvé"});
+
+    try {
+        const product = await productController.deleteProduct(req)
+        res.status(201).json({ result: "Produit supprimé" });
+    } catch (error) {
+        next(error);
     }
-}) 
+
+})
 
 module.exports = app;

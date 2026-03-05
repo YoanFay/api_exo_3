@@ -5,7 +5,7 @@ CREATE DATABASE productmanager
 USE productmanager;
 
 CREATE TABLE product(
-    id INT NOT NULL AUTO_INCREMENT,
+    id VARCHAR(36) NOT NULL,
     name VARCHAR(255) NOT NULL,
     price int NOT NULL,
     category VARCHAR(255) NULL,

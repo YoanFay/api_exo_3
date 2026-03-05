@@ -2,6 +2,7 @@ const z = require("zod");
 const AppError = require("../../core/errors/app-error");
 
 const ProductSchema = z.object({
+    id: z.uuidv4(),
     name: z.string("name must be a string"),
     price: z.number("price must be a number")
 })

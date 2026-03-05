@@ -19,7 +19,7 @@ app.get("/:id", async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-    
+
 });
 
 // 3. CREATE
@@ -35,7 +35,7 @@ app.post("/", async (req, res, next) => {
 });
 
 // 4. UPDATE
-app.put("/", async (req, res) => {
+app.put("/", async (req, res, next) => {
 
     try {
         const product = await productController.updateProduct(req)
@@ -47,7 +47,7 @@ app.put("/", async (req, res) => {
 })
 
 // 5. DELETE
-app.delete("/", async (req, res) => {
+app.delete("/", async (req, res, next) => {
 
     try {
         const product = await productController.deleteProduct(req)

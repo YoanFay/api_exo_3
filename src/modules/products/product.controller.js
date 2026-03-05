@@ -1,6 +1,7 @@
 const AppError = require('../../core/errors/app-error.js');
 const productRepository = require('./product.repository.js');
 const productSchema = require('./product.schema.js');
+const { v4: uuidv4 } = require("uuid");
 
 function getAllProducts() {
     const product = productRepository.findAll();
@@ -9,9 +10,7 @@ function getAllProducts() {
 
 async function getOneProduct(req) {
 
-    // 🚨 Attention : req.params.id est toujours une String !
-    const productId = parseInt(req.params.id, 10);
-    const product = await productRepository.find(productId);
+    const product = await productRepository.find(req.params.id);
 
     if (product.length == 0) {
         throw new AppError("Produit introuvable", 404)
@@ -23,6 +22,7 @@ async function getOneProduct(req) {
 
 function addOneProduct(req) {
     const newProduct = {
+        id: uuidv4(),
         name: req.body.name,
         price: req.body.price,
     };
@@ -36,7 +36,7 @@ function addOneProduct(req) {
 
 async function updateProduct(req) {
 
-    const product = await productRepository.find(parseInt(req.body.id, 10));
+    const product = await productRepository.find(req.body.id);
 
     if (product.length == 0) {
         throw new AppError("Produit introuvable", 404)
@@ -44,7 +44,7 @@ async function updateProduct(req) {
 
     // Pour l'instant, on fait une confiance aveugle au body (TRÈS MAUVAIS !)
     const updatedProduct = {
-        id: parseInt(req.body.id),
+        id: req.body.id,
         name: req.body.name,
         price: req.body.price,
     }
@@ -57,16 +57,9 @@ async function updateProduct(req) {
 
 async function deleteProduct(req) {
 
-    const productId = parseInt(req.body.id, 10);
-    const product = await productRepository.find(productId);
+    const product = await productRepository.find(req.body.id);
 
-    if (product.length > 0) {
-
-        return productRepository.deleteProduct(productId);
-
-    } else {
-        return false
-    }
+    return productRepository.deleteProduct(req.body.id);
 
 }
 

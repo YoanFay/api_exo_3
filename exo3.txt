@@ -3,21 +3,26 @@ Vous prendrez comme point de départ le code fait hier
     (à retrouver dans le document rest_js.pdf, sur le thèmes des produits).
 Vous aurez à cœur de modifier l'architecture de l'app pour coller à l'état de l'art 
     défini dans le document rest_architecture.pdf, ce qui, comprend :
- - La restructuration des dossiers en une structure claire.
- - Le refacto du code pour approche métier
+ - La restructuration des dossiers en une structure claire.✅
+ - Le refacto du code pour approche métier✅
 
  - L'ajout : 
     - d'une petite base de données d'une table en appliquant les bonnes pratiques apprises lors du dernier cours de BDD 
         (connexionPool, ORM, etc...), pour rappel un objet product est caractérisé par : 
-        un ID (UUID, voir point suivant), un nom, un prix et une catégorie.
-    - d'un ID de type UUID
-    - de toutes les routes nécessaires à traiter le CRUD des products (N'hésitez pas à en ajouter si nécessaire).
+        un ID (UUID, voir point suivant), un nom, un prix et une catégorie.✅
+    - d'un ID de type UUID✅
+    - de toutes les routes nécessaires à traiter le CRUD des products (N'hésitez pas à en ajouter si nécessaire).✅
     - des routes qui permettent (via un query param) de trier les résultats par nom, par catégorie et / ou par prix
-    - de middlewares afin de vérifier les payload reçus (grâce à Zod)
-    - d'un middleware de gestion d'erreur
+    - de middlewares afin de vérifier les payload reçus (grâce à Zod)✅
+    - d'un middleware de gestion d'erreur✅
     - d'un logger avec niveaux de log
     - de headers permettant de limiter le nombre de requête à 100 par heure, 
         d'invalider le cache d'une requête vieille de 10 minutes 
         (attention aux effets de bord pendant votre dev si vous mettez le mécanisme en place un peu tôt)
- - La gestion des codes de retours
- - La gestion des "secrets" en variables d'environnement
+ - La gestion des codes de retours✅
+ - La gestion des "secrets" en variables d'environnement✅
+
+ Ajoutez des ressources à l'API :
+ - Users (les utilisateurs / clients, Un CRUD uniquement pour le moment)
+ - Ratings (un système de rating des produits, Un CRUD, note de 1 à 5)
+ - Orders (composés de Users et de Products)

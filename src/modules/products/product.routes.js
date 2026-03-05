@@ -5,7 +5,7 @@ const productController = require("./product.controller.js")
 // 1. READ (Tous les produits)
 app.get("/", async (req, res) => {
 
-    products = await productController.getAllProducts()
+    products = await productController.getAllProducts(req)
     res.status(200).json(products);
 
 });

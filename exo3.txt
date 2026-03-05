@@ -12,7 +12,7 @@ Vous aurez à cœur de modifier l'architecture de l'app pour coller à l'état d
         un ID (UUID, voir point suivant), un nom, un prix et une catégorie.✅
     - d'un ID de type UUID✅
     - de toutes les routes nécessaires à traiter le CRUD des products (N'hésitez pas à en ajouter si nécessaire).✅
-    - des routes qui permettent (via un query param) de trier les résultats par nom, par catégorie et / ou par prix
+    - des routes qui permettent (via un query param) de trier les résultats par nom, par catégorie et / ou par prix✅
     - de middlewares afin de vérifier les payload reçus (grâce à Zod)✅
     - d'un middleware de gestion d'erreur✅
     - d'un logger avec niveaux de log

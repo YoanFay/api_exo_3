@@ -3,8 +3,11 @@ const productRepository = require('./product.repository.js');
 const productSchema = require('./product.schema.js');
 const { v4: uuidv4 } = require("uuid");
 
-function getAllProducts() {
-    const product = productRepository.findAll();
+function getAllProducts(req) {
+
+    const query = req._parsedUrl.query
+
+    const product = productRepository.findAll(query);
     return product;
 }
 

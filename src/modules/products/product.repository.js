@@ -1,8 +1,23 @@
 const server = require('../../server.js');
 
-async function findAll() {
+async function findAll(query) {
+
+    let request = "SELECT * FROM product"
+
+    if(query){
+
+        const queryList= query.split("&")
+
+        request = `${request} ORDER BY `
+
+        queryList.map(element => {
+            const querySplit = element.split("=")
+            request = `${request} ${querySplit[1]} ${querySplit[0]},`
+        })
+    }
+
     const connection = await server.connectionPool.getConnection();
-    const rows = await connection.query("SELECT * FROM product")
+    const rows = await connection.query(request.substring(0, request.length - 1))
     return rows;
 }
 
@@ -15,7 +30,7 @@ async function find(id) {
 async function createProduct(product) {
     const connection = await server.connectionPool.getConnection();
     const rows = await connection.query(`INSERT INTO product(id, name, price) VALUES('${product.id}', '${product.name}', ${product.price})`)
-    return find(parseInt(rows.insertId))
+    return find(product.id)
 }
 
 async function updateProduct(product) {

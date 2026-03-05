@@ -29,13 +29,13 @@ async function find(id) {
 
 async function createProduct(product) {
     const connection = await server.connectionPool.getConnection();
-    const rows = await connection.query(`INSERT INTO product(id, name, price) VALUES('${product.id}', '${product.name}', ${product.price})`)
+    const rows = await connection.query(`INSERT INTO product(id, name, price, category) VALUES('${product.id}', '${product.name}', ${product.price}, '${product.category}')`)
     return find(product.id)
 }
 
 async function updateProduct(product) {
     const connection = await server.connectionPool.getConnection();
-    const rows = await connection.query(`UPDATE product SET name='${product.name}', price = ${product.price} WHERE id='${product.id}'`)
+    const rows = await connection.query(`UPDATE product SET name='${product.name}', price = ${product.price}, category='${product.category}' WHERE id='${product.id}'`)
     if (rows.warningStatus == 0) {
         return find(product.id)
     }

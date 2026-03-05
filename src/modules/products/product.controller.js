@@ -28,6 +28,7 @@ function addOneProduct(req) {
         id: uuidv4(),
         name: req.body.name,
         price: req.body.price,
+        category: req.body.category,
     };
 
     productSchema.productValidator(newProduct);
@@ -50,6 +51,7 @@ async function updateProduct(req) {
         id: req.body.id,
         name: req.body.name,
         price: req.body.price,
+        category: req.body.category,
     }
 
     productSchema.productValidator(updatedProduct);

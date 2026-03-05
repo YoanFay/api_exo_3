@@ -4,7 +4,8 @@ const AppError = require("../../core/errors/app-error");
 const ProductSchema = z.object({
     id: z.uuidv4(),
     name: z.string("name must be a string"),
-    price: z.number("price must be a number")
+    price: z.number("price must be a number"),
+    category: z.string()
 })
 
 function productValidator(product) {

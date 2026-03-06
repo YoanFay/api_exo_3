@@ -14,10 +14,12 @@ async function findAll(query) {
             const querySplit = element.split("=")
             request = `${request} ${querySplit[1]} ${querySplit[0]},`
         })
+
+        request = request.substring(0, request.length - 1)
     }
 
     const connection = await server.connectionPool.getConnection();
-    const rows = await connection.query(request.substring(0, request.length - 1))
+    const rows = await connection.query(request)
     return rows;
 }
 
